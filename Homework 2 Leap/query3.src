@@ -1,0 +1,3 @@
+r1 = project (select(employee)) (fname)
+r2 = project (select(dependent)) (dependent_name)
+display((r1) product (r2))

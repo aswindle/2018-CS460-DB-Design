@@ -1,0 +1,9 @@
+## Names of depts managed by people with dependent female spouses
+## 'Spouse', 'F'
+## Female spouses
+d1= select (dependent) (sex = 'F') {and (relationship = 'Spouse')}
+## People with those spouses
+e1= (employee) join (d1) (employee.ssn = d1.essn)
+## Those employees who are managers
+m1= (e1) join (department) (department.mgrssn = e1.ssn)
+display(project (m1) (dname))

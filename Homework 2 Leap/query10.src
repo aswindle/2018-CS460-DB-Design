@@ -1,0 +1,8 @@
+## names of male dependents of male employees using intersection
+## male dependents
+d1= select (dependent) (sex = 'M')
+## dependents of male employees
+m1= select (employee) (sex = 'M')
+d2= project ((dependent) join (m1) (dependent.essn = m1.ssn)) (essn, dependent_name, sex, bdate, relationship)
+d3= (d1) intersect (d2)
+display (project (d3) (dependent_name))

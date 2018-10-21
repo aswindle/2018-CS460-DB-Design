@@ -1,0 +1,13 @@
+## Names of departments that employ M and F
+## Employee: find dno that are matched with all sex
+## alpha = dno, sex
+a = project (employee) (dno, sex)
+## beta = sex
+b = project (employee) (sex)
+## second half of equation
+e2 = project ( ((project (a) (dno)) product (b)) difference (a)) (dno)
+## full equation
+div = (project (a) (dno)) difference (e2)
+## get the department names from that list
+d1 = (div) join (department) (div.dno = department.dnumber)
+display(project (d1) (dname))

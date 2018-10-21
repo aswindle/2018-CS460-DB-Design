@@ -1,0 +1,5 @@
+## Get the product of dept_locations and department
+r1= (dept_locations) product (department)
+## Get the ones where dname = research
+r2= select(r1) (dname = 'Research') {and (dnumber = d#)}
+display(project (r2) (dlocation))

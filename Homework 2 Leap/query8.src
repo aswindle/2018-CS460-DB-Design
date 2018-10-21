@@ -1,0 +1,10 @@
+## Birthdates of managers of proposals from Stafford
+## Proposals from stafford
+s= select (proposal) (plocation = 'Stafford')
+## Employee ssns who work on those
+e1= (s) join (works_on) (s.pnumber = works_on.pno)
+## Employees with those ssn
+e2= (e1) join (employee) (e1.empssn = employee.ssn)
+## Managers of those employees
+m1= (e2) join (employee) (employee.ssn = e2.superssn)
+display (project(m1) (bdate))

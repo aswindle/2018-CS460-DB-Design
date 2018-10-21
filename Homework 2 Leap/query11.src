@@ -1,0 +1,7 @@
+## Salaries of employees in Dept 5 NOT on ProductY (pnumber 2)
+## Employees, salaries in dept 5
+e1= project (select (employee) (dno = '5')) (ssn, salary)
+## Employees, salary on product y
+e2 = (employee) join (works_on) (employee.ssn = works_on.empssn)
+e3 = project (select (e2) (pno = '2')) (ssn, salary)
+display( project ((e1) difference (e3)) (salary) )

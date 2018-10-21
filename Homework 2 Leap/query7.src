@@ -1,0 +1,6 @@
+## SSNs of employees in dept 5 OR manage employee in dept 5
+## Employees in dept 5
+r1= select (employee) (dno = '5')
+## We want those employee SSNs unioned with their supervisor's ssn
+r2= (project (r1) (ssn)) union (project (r1) (superssn))
+display (r2)

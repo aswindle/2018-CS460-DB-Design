@@ -1,0 +1,2 @@
+r1 = select (employee) (dno = '5')
+display(r1)

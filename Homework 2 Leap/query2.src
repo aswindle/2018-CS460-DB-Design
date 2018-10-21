@@ -1,0 +1,4 @@
+r1= select (works_on) (works_on.pno = '10')
+r2= project (r1) (empssn)
+display (r2)
+

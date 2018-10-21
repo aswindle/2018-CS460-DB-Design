@@ -1,0 +1,7 @@
+## Names of departments with employees with dependents named alice
+## Employees with dependents named alice
+r1= join (employee) (dependent) (dependent.essn = employee.ssn)
+r2= select (r1) (dependent_name = 'Alice')
+## Departments with those employees
+r3= join (r2) (department) (r2.dno = department.dnumber)
+display (project(r3) (dname))

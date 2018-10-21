@@ -1,0 +1,3 @@
+SQL Plus:
+aswindle@oracle.aloe
+Password: a5524

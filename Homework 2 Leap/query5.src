@@ -1,0 +1,4 @@
+## join dept_locations and department using dnumber
+r1= join (dept_locations) (department) (dept_locations.d# = department.dnumber)
+## Display just the locations of the ones with name Research
+display(project(select(r1) (dname = 'Research')) (dlocation))

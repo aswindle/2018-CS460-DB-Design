@@ -1,0 +1,152 @@
+QUERY RESULTS
+
+QUERY 01
+FNAME      M LNAME      SSN       BDATE     ADDRESS                        S     SALARY SUPERSSN         DNO
+---------- - ---------- --------- --------- ------------------------------ - ---------- --------- ----------
+John       B Smith      123456789 09-JAN-55 731 Fondren, Houston, TX       M      30000 333445555          5
+Franklin   T Wong       333445555 08-DEC-45 638 Voss, Houston, TX          M      40000 888665555          5
+Ramesh     K Narayan    666884444 15-SEP-52 975 Fire Oak, Humble, TX       M      38000 333445555          5
+Joyce      A English    453453453 31-JUL-62 5631 Rice, Houston, TX         F      25000 333445555          5
+
+	 
+QUERY 02
+ESSN
+---------
+999887777
+987987987
+333445555
+
+
+QUERY 03
+FNAME      DEPENDENT_
+---------- ----------
+John       Michael
+John       Theodore
+John       Abner
+Alicia     Elizabeth
+Alicia     Abner
+Jennifer   Elizabeth
+Jennifer   Theodore
+Joyce      Alice
+Ahmed      Joy
+James      Alice
+John       Alice
+Franklin   Elizabeth
+Jennifer   Michael
+Franklin   Michael
+Ramesh     Alice
+Joyce      Elizabeth
+Joyce      Michael
+Ahmed      Alice
+Ahmed      Elizabeth
+Ahmed      Theodore
+Ahmed      Abner
+Joyce      Joy
+James      Elizabeth
+James      Joy
+James      Abner
+Franklin   Alice
+Alicia     Alice
+Alicia     Theodore
+Jennifer   Abner
+Ramesh     Theodore
+James      Theodore
+John       Elizabeth
+Franklin   Abner
+Jennifer   Alice
+Ramesh     Joy
+Alicia     Joy
+Ramesh     Michael
+Ramesh     Abner
+Joyce      Theodore
+James      Michael
+John       Joy
+Franklin   Joy
+Franklin   Theodore
+Alicia     Michael
+Jennifer   Joy
+Ramesh     Elizabeth
+Joyce      Abner
+Ahmed      Michael
+
+48 rows selected.
+
+QUERY 04
+DLOCATION
+----------
+Houston
+Sugarland
+Bellaire
+
+QUERY 05
+FNAME      M LNAME
+---------- - ----------
+James      E Borg
+
+QUERY 06
+DNAME
+---------------
+Research
+Research
+
+QUERY 07
+SSN
+---------
+123456789
+333445555
+453453453
+666884444
+888665555
+
+
+QUERY 08
+BDATE
+---------
+20-JUN-31
+20-JUN-31
+
+QUERY 09
+FNAME      M LNAME      FNAME      M LNAME
+---------- - ---------- ---------- - ----------
+Ramesh     K Narayan    Franklin   T Wong
+John       B Smith      Franklin   T Wong
+Joyce      A English    Franklin   T Wong
+Franklin   T Wong       James      E Borg
+Jennifer   S Wallace    James      E Borg
+Alicia     J Zelaya     Jennifer   S Wallace
+Ahmed      V Jabbar     Jennifer   S Wallace
+
+QUERY 10
+DEPENDENT_
+----------
+Michael
+Theodore
+
+QUERY 11
+    SALARY
+----------
+     25000
+     30000
+     38000
+     40000
+     40000
+     40000
+
+QUERY 12
+PNAME                       PNO COUNT(WO.ESSN)
+-------------------- ---------- --------------
+ProductX                      1              2
+Newbenefits                  30              3
+ProductY                      2              3
+Reorganization               20              3
+ProductZ                      3              2
+Computerization              10              3
+
+6 rows selected.
+
+
+QUERY 13
+DNAME
+---------------
+Research
+Administration

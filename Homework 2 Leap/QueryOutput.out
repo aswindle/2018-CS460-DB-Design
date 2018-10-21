@@ -1,0 +1,236 @@
+Alex Swindle
+aswindle
+CSC 460 Fall 18
+Homework 2: LEAP
+
+#### QUERY 1: ####
+r1 = select (employee) (dno = '5')
+display(r1)
+
+Q1 RESULTS:
+fname      minit lname      ssn       bdate        address                        sex salary   superssn  dno
+---------- ----- ---------- --------- ------------ ------------------------------ --- -------- --------- --------
+John       B     Smith      123456789 09-JAN-1955  731_Fondren_Houston_TX         M   30000    333445555 5
+Franklin   T     Wong       333445555 08-DEC-1945  638_Voss_Houston_TX            M   40000    888665555 5
+Ramesh     K     Narayan    666884444 15-SEP-1952  975_Fire Oak_Humble_TX         M   38000    333445555 5
+Joyce      A     English    453453453 31-JUL-1962  5631_Rice_Houston_TX           F   25000    333445555 5
+
+#### QUERY 2: ####
+r1= select (works_on) (works_on.pno = '10')
+r2= project (r1) (empssn)
+display (r2)
+
+Q2 RESULTS:
+empssn
+---------
+333445555
+999887777
+987987987
+
+#### QUERY 3: ####
+r1 = project (select(employee)) (fname)
+r2 = project (select(dependent)) (dependent_name)
+display((r1) product (r2))
+
+Q3 RESULTS:
+fname      dependent_name
+---------- --------------
+John       Alice
+John       Theodore
+John       Joy
+John       Abner
+John       Michael
+John       Elizabeth
+Franklin   Alice
+Franklin   Theodore
+Franklin   Joy
+Franklin   Abner
+Franklin   Michael
+Franklin   Elizabeth
+Alicia     Alice
+Alicia     Theodore
+Alicia     Joy
+Alicia     Abner
+Alicia     Michael
+Alicia     Elizabeth
+Jennifer   Alice
+Jennifer   Theodore
+Jennifer   Joy
+Jennifer   Abner
+Jennifer   Michael
+Jennifer   Elizabeth
+Ramesh     Alice
+Ramesh     Theodore
+Ramesh     Joy
+Ramesh     Abner
+Ramesh     Michael
+Ramesh     Elizabeth
+Joyce      Alice
+Joyce      Theodore
+Joyce      Joy
+Joyce      Abner
+Joyce      Michael
+Joyce      Elizabeth
+Ahmed      Alice
+Ahmed      Theodore
+Ahmed      Joy
+Ahmed      Abner
+Ahmed      Michael
+Ahmed      Elizabeth
+James      Alice
+James      Theodore
+James      Joy
+James      Abner
+James      Michael
+James      Elizabeth
+
+#### QUERY 4: ####
+## Get the product of dept_locations and department
+r1= (dept_locations) product (department)
+## Get the ones where dname = research
+r2= select(r1) (dname = 'Research') {and (dnumber = d#)}
+display(project (r2) (dlocation))
+
+Q4 RESULTS:
+dlocation
+----------
+Houston
+Stafford
+Bellaire
+Sugarland
+
+#### QUERY 5: ####
+## join dept_locations and department using dnumber
+r1= join (dept_locations) (department) (dept_locations.d# = department.dnumber)
+## Display just the locations of the ones with name Research
+display(project(select(r1) (dname = 'Research')) (dlocation))
+
+Q5 RESULTS:
+dlocation
+----------
+Houston
+Stafford
+Bellaire
+Sugarland
+
+#### QUERY 6: ####
+## Names of departments with employees with dependents named alice
+## Employees with dependents named alice
+r1= join (employee) (dependent) (dependent.essn = employee.ssn)
+r2= select (r1) (dependent_name = 'Alice')
+## Departments with those employees
+r3= join (r2) (department) (r2.dno = department.dnumber)
+display (project(r3) (dname))
+
+Q6 RESULTS:
+dname
+---------------
+Research
+
+#### Query 7: ####
+## SSNs of employees in dept 5 OR manage employee in dept 5
+## Employees in dept 5
+r1= select (employee) (dno = '5')
+## We want those employee SSNs unioned with their supervisor's ssn
+r2= (project (r1) (ssn)) union (project (r1) (superssn))
+display (r2)
+
+Q7 RESULTS:
+superssn
+---------
+123456789
+333445555
+666884444
+453453453
+888665555
+
+#### QUERY 8: ####
+## Birthdates of managers of proposals from Stafford
+## Proposals from stafford
+s= select (proposal) (plocation = 'Stafford')
+## Employee ssns who work on those
+e1= (s) join (works_on) (s.pnumber = works_on.pno)
+## Employees with those ssn
+e2= (e1) join (employee) (e1.empssn = employee.ssn)
+## Managers of those employees
+m1= (e2) join (employee) (employee.ssn = e2.superssn)
+display (project(m1) (bdate))
+
+
+Q8 RESULTS:
+bdate
+------------
+08-DEC-1945
+19-JUL-1958
+29-MAR-1959
+20-JUN-1931
+
+#### QUERY 9: ####
+## Names of depts managed by people with dependent female spouses
+## 'Spouse', 'F'
+## Female spouses
+d1= select (dependent) (sex = 'F') {and (relationship = 'Spouse')}
+## People with those spouses
+e1= (employee) join (d1) (employee.ssn = d1.essn)
+## Those employees who are managers
+m1= (e1) join (department) (department.mgrssn = e1.ssn)
+display(project (m1) (dname))
+
+
+Q9 RESULTS:
+dname
+---------------
+Research
+
+#### QUERY 10: ####
+## names of male dependents of male employees using intersection
+## male dependents
+d1= select (dependent) (sex = 'M')
+## dependents of male employees
+m1= select (employee) (sex = 'M')
+d2= project ((dependent) join (m1) (dependent.essn = m1.ssn)) (essn, dependent_name, sex, bdate, relationship)
+d3= (d1) intersect (d2)
+display (project (d3) (dependent_name))
+
+Q10 RESULTS:
+dependent_name
+--------------
+Theodore
+Michael
+
+#### QUERY 11: ####
+## Salaries of employees in Dept 5 NOT on ProductY (pnumber 2)
+## Employees, salaries in dept 5
+e1= project (select (employee) (dno = '5')) (ssn, salary)
+## Employees, salary on product y
+e2 = (employee) join (works_on) (employee.ssn = works_on.empssn)
+e3 = project (select (e2) (pno = '2')) (ssn, salary)
+display( project ((e1) difference (e3)) (salary) )
+
+Q11 RESULTS:
+salary
+--------
+38000
+
+#### QUERY 12: ####
+## Names of departments that employ M and F
+## Employee: find dno that are matched with all sex
+## alpha = dno, sex
+a = project (employee) (dno, sex)
+## beta = sex
+b = project (employee) (sex)
+## second half of equation
+e2 = project ( ((project (a) (dno)) product (b)) difference (a)) (dno)
+## full equation
+div = (project (a) (dno)) difference (e2)
+## get the department names from that list
+d1 = (div) join (department) (div.dno = department.dnumber)
+display(project (d1) (dname))
+
+
+Q12 RESULTS:
+dname
+---------------
+Research
+Administration
+
